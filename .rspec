@@ -1,0 +1,4 @@
+# /.rspec
+--color
+--fail-fast
+--format documentation
