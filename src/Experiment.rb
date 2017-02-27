@@ -1,7 +1,7 @@
 #
 # Experiment.rb
 #
-# Time-stamp: <2017-02-23 17:35:15 (ryosuke)>
+# Time-stamp: <2017-02-27 12:45:38 (ryosuke)>
 
 #----------------------------
 module Element
@@ -141,61 +141,26 @@ class Word
     ff = @factors.flatten
     #
     size_diff = 1
-    while (size_diff > 0 and ff.size > 1)
+    while (size_diff > 0 && ff.size > 1)
       previous_size = ff.size
       #
-      ff.each_with_index do |factor, idx|
-        if (idx < ff.size - 1) then
+      ff.each_with_index do |_, idx|
+        if (idx < ff.size - 1)
           pair = ff.slice!(idx, 2)
-          if pair[0] =~ pair[1]
+          if (pair[0] =~ pair[1])
+            # DO SOMETHING
           end
-          ff.insert(idx, pair[0]*pair[1]).flatten! if pair[0].show
+          ff.insert(idx, pair[0] * pair[1]).flatten! if pair[0].show
         end
       end
       #
       size_diff = previous_size - ff.size
     end
     #
-    self.set( ff.flatten.join )
+    set(ff.flatten.join)
   end
 end
 
-#-------------------------------------------------
-# class Component
-#   attr_accessor :name
-#   def initialize(name)
-#     @name = name
-#   end
-# end
-
-# class FileComponent < Component
-#   def initialize(name)
-#     super(name)
-#   end
-# end
-
-# class DirectoryComponent < Component
-#   def initialize(name)
-#     super(name)
-#     @components = []
-#   end
-
-#   def add(component)
-#     @components << component
-#   end
-
-#   def remove(component)
-#     @components.delete(component)
-#   end
-
-# end
-
-# picture = DirectoryComponent.new("PICTURE")
-# picture.add(FileComponent.new("child.jpg"))
-# picture.add(FileComponent.new("car.jpg"))
-# picture.add(FileComponent.new("landscape.jpe"))
-
-# usb = DirectoryComponent.new("UsbDevice")
-# usb.add(picture)
-
-#End of File
+#-------------
+# End of File
+#-------------

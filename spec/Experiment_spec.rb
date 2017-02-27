@@ -1,7 +1,7 @@
 #
 # Experiment_spec.rb
 #
-# Time-stamp: <2017-02-23 17:37:24 (ryosuke)>
+# Time-stamp: <2017-02-27 10:42:09 (ryosuke)>
 require('spec_helper')
 
 require('Experiment.rb')
@@ -497,28 +497,29 @@ describe "generated in a random manner" do
   before do
     @alph = ('a'..'z').to_a + ('A'..'Z').to_a + ['1']
   end
-#
+  
+  #
+  let(:myword) { Word.new('abcde') }
   it "raises no error in any method" do
-    10.times do |i|
+    10.times do
       @mstr = ''
-      20.times{ |k| @mstr += @alph[rand(@alph.size)] }
+      20.times { @mstr += @alph[rand(@alph.size)] }
       random_word = Word.new(@mstr)
       (expect do
         random_word.to_s
         random_word.invert
         random_word.replace('qoeEoKlrjfij')
-        random_word^5
+        random_word ^ 5
         random_word.contract
-        random_word*random_word
-        random_word*(Word.new('abcde'))
-        (random_word*random_word.invert).contract
+        random_word * random_word 
+        random_word * myword
+        (random_word * random_word.invert).contract
       end).not_to raise_error
     end
   end
 end
-
 end
 
 #-------------
-#End of File
+# End of File
 #-------------

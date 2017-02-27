@@ -1,0 +1,91 @@
+#
+# Experiment_spec.rb
+#
+# Time-stamp: <2017-02-23 13:54:43 (ryosuke)>
+require('spec_helper')
+
+require('Experiment')
+
+#---------------------------------------
+describe Letter do
+  #---
+  context "the default value of an instance" do
+    let(:an_inst) { Letter.new }
+    subject{ an_inst.show }
+    it{ is_expected.to eq '1' }
+  end
+  context do
+    let(:an_inst) { Letter.new('x', index: 3) }
+    it { expect(an_inst.show).to eq 'x_{3}'}
+  end
+  context "#product_with a Letter" do
+    let(:x1) { Letter.new('x', index: 1) }
+    let(:x2) { Letter.new('x', index: 2) }
+    subject { x1*x2 }
+    it { is_expected.to be_a Word }
+    it { expect(subject.show).to eq 'x_{1}x_{2}' }
+  end
+  context "#product_with a Word" do
+    let(:x1) { Letter.new('x', index: 1) }
+    let(:wrd) { Word.new * Letter.new('x', index: 2) }
+    subject { x1*wrd }
+    it { is_expected.to be_a Word }
+    it { expect(subject.show).to eq 'x_{1}x_{2}' }
+  end
+  # context do
+  #   it { expect().to }
+  # end
+end
+#---------------------------------------
+#---------------------------------------
+ describe Word do
+  #---
+  context "the default value of an instance" do
+    let(:an_inst) { Word.new }
+    subject{ an_inst.show }
+    it{ is_expected.to eq ''}
+  end
+  #---
+  context "initialize an instance" do
+    let(:an_inst) { Word.new('str') }
+    subject{ an_inst.show }
+    it{ is_expected.to eq 'str'}
+  end
+  #---
+  context "#product_with a Letter" do
+    let(:wrd) { Word.new * x1 }
+    let(:x1) { Letter.new('x', index: 1) }
+    let(:x2) { Letter.new('x', index: 2) }
+    subject { wrd*x2*x1 }
+    it { is_expected.to be_a Word }
+    it { expect(subject.show).to eq 'x_{1}x_{2}x_{1}'}
+  end
+  #---
+  context "#product_with a Word" do
+    let(:wrd1) { Word.new * Letter.new('x', index: 1) }
+    let(:wrd2) { Word.new * Letter.new('x', index: 2) }
+    subject { wrd1*wrd2 }
+    it { is_expected.to be_a Word }
+    it { expect(subject.show).to eq 'x_{1}x_{2}'}
+  end
+  context do
+    subject{ (Word.new('ab') * Word.new('cd')) }
+    it { expect( subject.show ).to eq 'abcd'}
+    it { expect( subject.show_parens ).to eq 'ab(cd)'}
+    it { expect( subject.flatten!.show_parens ).to eq 'abcd'}
+  end
+  context do
+    subject{ Word.new('xy') * ( Word.new('ab') * Word.new('cd')) }
+    it { expect( subject.show ).to eq 'xyabcd'}
+    it { expect( subject.show_parens ).to eq 'xy(ab(cd))'}
+    it { expect( subject.flatten!.show_parens ).to eq 'xyabcd'}
+  end
+  # context do
+  #   it { expect().to }
+  # end
+ end
+#---------------------------------------
+
+#-------------
+#End of File
+#-------------

@@ -1,12 +1,15 @@
 source 'https://rubygems.org'
 
 group :development do
+  gem 'guard'
+  gem 'guard-rubocop', require: false
   gem 'pry'
   gem 'pry-byebug'
-  gem 'guard'
+  gem 'rake'
+  gem 'rubocop', require: false
 end
 
 group :test do
-  gem 'rspec'
   gem 'guard-rspec'
+  gem 'rspec'
 end
