@@ -1,7 +1,7 @@
 #
 # Experiment.rb
 #
-# Time-stamp: <2017-02-27 12:45:38 (ryosuke)>
+# Time-stamp: <2017-02-27 18:52:19 (ryosuke)>
 
 #----------------------------
 module Element
@@ -22,7 +22,7 @@ module Element
     @name
   end
   def to_s
-    self.show
+    show
   end
   #---
   def length
@@ -40,7 +40,7 @@ module Element
   end
   #---
   def ==(anElement)
-    self.show == anElement.show
+    show == anElement.show
   end
 end
 #----------------------------
@@ -67,23 +67,23 @@ class Letter
     #nil if @char == '1'
   end
   #---
-  def =~(a_Letter)
-    raise(InvalidArgument) unless a_Letter.is_a?(Letter)
-    @char == a_Letter.char
+  def =~(aLetter)
+    raise(InvalidArgument) unless aLetter.is_a?(Letter)
+    @char == aLetter.char
   end
   #---
-  def ==(a_Letter)
-    (self =~ a_Letter) && (self.inverse? == a_Letter.inverse?)
+  def ==(aLetter)
+    (self =~ aLetter) && (inverse? == aLetter.inverse?)
   end
   #---
-  def ===(a_Letter)
-    raise(InvalidArgument) unless a_Letter.is_a?(Letter)
-    self.object_id == a_Letter.object_id
+  def ===(aLetter)
+    raise(InvalidArgument) unless aLetter.is_a?(Letter)
+    @object_id == aLetter.object_id
   end
   #---
-  def <=>(a_Letter)
-    raise(InvalidArgument) unless a_Letter.is_a?(Letter)
-    self.show <=> another.show
+  def <=>(aLetter)
+    raise(InvalidArgument) unless aLetter.is_a?(Letter)
+    show <=> another.show
   end
   #---
   def product_with(another)
@@ -91,8 +91,8 @@ class Letter
   end
   #---
   def inversion
-    inv_char = self.inverse? ? @char.downcase : @char.upcase
-    inv_name = @name.end_with?('^{-1}') ? @name.gsub('^{-1}','') : @name+'^{-1}'
+    inv_char = inverse? ? @char.downcase : @char.upcase
+    inv_name = @name.end_with?('^{-1}') ? @name.gsub('^{-1}','') : @name + '^{-1}'
     Letter.new(inv_char, name: inv_name)
   end
 end
@@ -115,10 +115,10 @@ class Word
   end
   #---
   def flatten
-    Word.new(self.to_s)
+    Word.new(to_s)
   end
   def flatten!
-    set(self.to_s)
+    set(to_s)
   end
   #---
   def show_parens
@@ -133,11 +133,11 @@ class Word
     (@factors.flatten)[int]
   end
   def [](int)
-    self.gen_at(int)
+    gen_at(int)
   end
   #---
   def contract
-    #binding.pry
+    # binding.pry
     ff = @factors.flatten
     #
     size_diff = 1
@@ -145,13 +145,12 @@ class Word
       previous_size = ff.size
       #
       ff.each_with_index do |_, idx|
-        if (idx < ff.size - 1)
-          pair = ff.slice!(idx, 2)
-          if (pair[0] =~ pair[1])
-            # DO SOMETHING
-          end
-          ff.insert(idx, pair[0] * pair[1]).flatten! if pair[0].show
+        next if (idx >= ff.size - 1)
+        pair = ff.slice!(idx, 2)
+        if (pair[0] =~ pair[1])
+          # DO SOMETHING
         end
+        ff.insert(idx, pair[0] * pair[1]).flatten! if pair[0].show
       end
       #
       size_diff = previous_size - ff.size

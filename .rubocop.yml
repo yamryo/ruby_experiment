@@ -1,3 +1,11 @@
-#日本語でのコメントを許可
+# 日本語でのコメントを許可
 AsciiComments:
+  Enabled: false
+
+# 条件式をカッコで囲むことを許可
+Style/ParenthesesAroundCondition:
+  Enabled: false
+
+# def の前に空行を入れないことを許可 ('# ---' 等のセパレータの利用)
+Style/EmptyLineBetweenDefs:
   Enabled: false
