@@ -1,3 +1,9 @@
+#
+# /home/ryosuke/Workspace/Project/ruby_experiment/.rubocop.yml
+#
+# Time-stamp: <2017-02-28 14:40:59 (ryosuke)>
+
+#- 自前のルール追加設定 ----------------------------------
 # 日本語でのコメントを許可
 AsciiComments:
   Enabled: false
@@ -9,3 +15,8 @@ Style/ParenthesesAroundCondition:
 # def の前に空行を入れないことを許可 ('# ---' 等のセパレータの利用)
 Style/EmptyLineBetweenDefs:
   Enabled: false
+#---------------------------------------------------------
+
+#- TODO リストの呼び出し ---------------------------------
+inherit_from: .rubocop_todo.yml
+#---------------------------------------------------------

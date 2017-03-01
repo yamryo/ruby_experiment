@@ -1,14 +1,14 @@
 #
 # Experiment.rb
 #
-# Time-stamp: <2017-02-27 18:52:19 (ryosuke)>
+# Time-stamp: <2017-03-01 13:32:14 (ryosuke)>
 
 #----------------------------
 module Element
   #---
   InvalidArgument = Class.new(ArgumentError)
   #---
-  def initialize()
+  def initialize
     @factors = []
     @name = ''
     set_name
@@ -35,22 +35,24 @@ module Element
     set_name
     self
   end
-  def *(another_element)
-    product_with(another_element)
+  def *(other)
+    product_with(other)
   end
   #---
-  def ==(anElement)
-    show == anElement.show
+  def ==(other)
+    show == other.show
   end
 end
 #----------------------------
 class Letter
   include Element
   #---
-  def initialize(char='1', name: nil)
+  def initialize(char = '1', name: nil)
     super()
     @factors = nil
-    raise InvalidArgument, "You can use alphabet and '1'" unless char[0] =~ /[1a-zA-Z]/
+    unless char[0] =~ /[1a-zA-Z]/
+      raise InvalidArgument, "You can use alphabet and '1'"
+    end
     @char = char[0]
     @name = name.nil? ? char : name
     @length = 1
@@ -62,27 +64,27 @@ class Letter
   end
   #---
   def inverse?
-    #binding.pry if @char == 'A'
+    # binding.pry if @char == 'A'
     @char == @char.upcase
-    #nil if @char == '1'
+    # nil if @char == '1'
   end
   #---
-  def =~(aLetter)
-    raise(InvalidArgument) unless aLetter.is_a?(Letter)
-    @char == aLetter.char
+  def =~(other)
+    raise(InvalidArgument) unless other.is_a?(Letter)
+    @char == a_letter.char
   end
   #---
-  def ==(aLetter)
-    (self =~ aLetter) && (inverse? == aLetter.inverse?)
+  def ==(other)
+    (self =~ other) && (inverse? == other.inverse?)
   end
   #---
-  def ===(aLetter)
-    raise(InvalidArgument) unless aLetter.is_a?(Letter)
-    @object_id == aLetter.object_id
+  def ===(other)
+    raise(InvalidArgument) unless other.is_a?(Letter)
+    @object_id == other.object_id
   end
   #---
-  def <=>(aLetter)
-    raise(InvalidArgument) unless aLetter.is_a?(Letter)
+  def <=>(other)
+    raise(InvalidArgument) unless other.is_a?(Letter)
     show <=> another.show
   end
   #---
@@ -92,7 +94,8 @@ class Letter
   #---
   def inversion
     inv_char = inverse? ? @char.downcase : @char.upcase
-    inv_name = @name.end_with?('^{-1}') ? @name.gsub('^{-1}','') : @name + '^{-1}'
+    inv_s = '^{-1}'
+    inv_name = @name.end_with?(inv_s) ? @name.gsub(inv_s, '') : @name + inv_s
     Letter.new(inv_char, name: inv_name)
   end
 end
@@ -102,7 +105,7 @@ class Word
   #---
   Identity = Letter.new
   #---
-  def initialize(str='')
+  def initialize(str = '')
     super()
     set(str)
   end
@@ -110,7 +113,7 @@ class Word
   def set(str)
     raise InvalidArgument unless str.is_a?(String)
     @factors = []
-    str.each_char{|c| self * Letter.new(c) if c =~ /[1a-zA-Z]/}
+    str.each_char { |c| self * Letter.new(c) if c =~ /[1a-zA-Z]/ }
     self
   end
   #---
@@ -122,7 +125,7 @@ class Word
   end
   #---
   def show_parens
-    @factors.map{|f| (f.length == 1) ? f.show : "(#{f.show_parens})"}.join
+    @factors.map { |f| (f.length == 1) ? f.show : "(#{f.show_parens})" }.join
   end
   #---
   def pop
