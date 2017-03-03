@@ -1,12 +1,17 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
+notification :off
 
-guard :rspec, cmd: 'bundle exec rspec' do
-  watch(%r{^spec/.+_spec\.rb$})
-  watch(%r{^src/(.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }
+group :rspec do
+  guard 'rspec', cmd: 'bundle exec rspec' do
+    watch(%r{^spec/.+_spec\.rb$})
+    watch(%r{^src/(.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }
+  end
 end
 
-guard :rubocop do
-  watch(/.+\.rb$/)
-  watch(%r{(?:.+/)?\.rubocop(_todo)*\.yml$}) { |m| File.dirname(m[0]) }
+group :rubocop do
+  guard 'rubocop' do
+    watch(/.+\.rb$/)
+    watch(%r{(?:.+/)?\.rubocop(_todo)*\.yml$}) { |m| File.dirname(m[0]) }
+  end
 end
