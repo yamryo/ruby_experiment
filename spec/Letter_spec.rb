@@ -1,8 +1,9 @@
 #
 # spec/Letter_spec.rb
 #
-# Time-stamp: <2017-03-03 18:29:03 (ryosuke)>
-require('spec_helper')
+# Time-stamp: <2017-03-10 14:59:44 (ryosuke)>
+$LOAD_PATH.push File.expand_path(File.dirname(__FILE__) + '/../src')
+#require('spec_helper')
 
 require('Letter.rb')
 

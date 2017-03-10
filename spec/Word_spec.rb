@@ -1,7 +1,7 @@
 #
 # spec/Word_spec.rb
 #
-# Time-stamp: <2017-03-03 18:21:06 (ryosuke)>
+# Time-stamp: <2017-03-10 15:00:05 (ryosuke)>
 require('spec_helper')
 
 require('Word.rb')
