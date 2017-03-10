@@ -2,11 +2,9 @@
 #
 # spec_helper.rb
 #
-# Time-stamp: <2017-03-10 15:01:57 (ryosuke)>
+# Time-stamp: <2017-03-10 15:06:40 (ryosuke)>
 
 $LOAD_PATH.push File.expand_path(File.dirname(__FILE__) + '/../src')
-
-p $LOAD_PATH
 
 require('rspec')
 # require('pry')
