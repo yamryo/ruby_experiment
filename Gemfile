@@ -5,11 +5,11 @@ group :development do
   gem 'guard-rubocop', require: false
   gem 'pry'
   gem 'pry-byebug'
-  gem 'rake'
   gem 'rubocop', require: false
 end
 
 group :test do
   gem 'guard-rspec'
   gem 'rspec'
+  gem 'rake'
 end
