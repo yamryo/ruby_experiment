@@ -2,13 +2,13 @@
 #
 # spec_helper.rb
 #
-# Time-stamp: <2017-02-27 10:33:30 (ryosuke)>
+# Time-stamp: <2017-03-10 14:35:44 (ryosuke)>
 
 $LOAD_PATH.push File.expand_path(File.dirname(__FILE__) + '/../src')
 
 require('rspec')
-require('pry')
-require('pry-byebug')
+# require('pry')
+# require('pry-byebug')
 
 RSpec.configure do |config|
   # focus: true が設定された example がある時それの example だけを実行する
